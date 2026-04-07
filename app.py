@@ -71,12 +71,17 @@ class App:
         scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
         self.log_text.configure(yscrollcommand=scrollbar.set)
 
-    # ---- helpers ----
-    def log(self, msg):
+    # ---- helpers (thread-safe) ----
+    def _atualizar_log(self, msg):
+        """Atualiza o log na thread principal (seguro)."""
         self.log_text.config(state=tk.NORMAL)
         self.log_text.insert(tk.END, msg + "\n")
         self.log_text.see(tk.END)
         self.log_text.config(state=tk.DISABLED)
+
+    def log(self, msg):
+        """Chamada de qualquer thread — despacha para a thread principal."""
+        self.root.after(0, self._atualizar_log, msg)
 
     def adicionar_linha(self):
         frame = ttk.Frame(self.internacoes_frame)
@@ -137,7 +142,7 @@ class App:
         self.rodando = True
 
         pasta_paciente, pasta_temp = preparar_pastas(nome)
-        self.bot = LabimedBot(pasta_temp, self.log)
+        self.bot = LabimedBot(usuario, senha, pasta_temp, self.log)
         self.bot.iniciar_browser()
 
         threading.Thread(

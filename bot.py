@@ -21,12 +21,14 @@ from utilidades import (
 
 
 class LabimedBot:
-    def __init__(self, pasta_temp, log_func):
+    def __init__(self, usuario, senha, pasta_temp, log_func):
+        self.usuario = usuario
+        self.senha = senha
         self.pasta_temp = pasta_temp
         self.log = log_func
         self.navegador = None
         self.wait = None
-        self.parar = False  # flag para botão de parar
+        self.parar = False
 
     # ---- browser ----
     def iniciar_browser(self):
@@ -59,8 +61,8 @@ class LabimedBot:
         try:
             self.wait.until(EC.presence_of_element_located(
                 (By.ID, cfg.ID_CAMPO_LOGIN)
-            )).send_keys(cfg.USUARIO)
-            self.navegador.find_element(By.ID, cfg.ID_CAMPO_SENHA).send_keys(cfg.SENHA)
+            )).send_keys(self.usuario)
+            self.navegador.find_element(By.ID, cfg.ID_CAMPO_SENHA).send_keys(self.senha)
             self.navegador.find_element(By.ID, cfg.ID_BOTAO_ENTRAR).click()
 
             self.log("[Relogin] Aguardando lista carregar...")
