@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.spec
+
+# PyInstaller
+build/
+dist/
+
+# Claude
+.claude/
+
+# Temp
+temp_download/
