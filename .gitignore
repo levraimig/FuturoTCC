@@ -13,3 +13,7 @@ dist/
 
 # Temp
 temp_download/
+
+# Seguranca e Ambiente Virtual
+.env
+venv/
