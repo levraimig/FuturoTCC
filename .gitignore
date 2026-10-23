@@ -7,13 +7,18 @@ __pycache__/
 # PyInstaller
 build/
 dist/
+*.exe
 
 # Claude
 .claude/
 
-# Temp
+# Temp e Laudos de Pacientes (LGPD)
 temp_download/
+Laudos_Baixados/
+Laudos_Pacientes/
+*.pdf
 
 # Seguranca e Ambiente Virtual
 .env
 venv/
+.venv/
